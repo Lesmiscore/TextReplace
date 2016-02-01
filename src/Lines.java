@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main
+public class Lines
 {
 	public static void main(String[] args)
 	{
@@ -10,17 +10,30 @@ public class Main
 			System.out.println(s);
 			File single=new File(replaceFilesDir,s);
 			String cont=readWholeFile(single);
-			cont=cont.replace("namespace pocketmine\\","namespace nao20010128nao\\");
+			if(cont==null){
+				continue;
+			}
+			String[] lines=lines(cont);
+			StringBuilder sb=new StringBuilder(lines.length*100);
+			for(String l:lines){
+				sb.append(l).append('\n');
+			}
+			sb.setLength(sb.length()-1);
+			cont=sb.toString();
 			System.out.println(cont);
 			writeToFile(single,cont);
 		}
 	}
-	public static String[] lines(String s)throws IOException{
-		BufferedReader br=new BufferedReader(new StringReader(s));
-		List<String> tmp=new ArrayList<>(4);
-		String line=null;
-		while(null!=(line=br.readLine()))tmp.add(line);
-		return tmp.toArray(new String[tmp.size()]);
+	public static String[] lines(String s){
+		try {
+			BufferedReader br=new BufferedReader(new StringReader(s));
+			List<String> tmp=new ArrayList<>(4);
+			String line=null;
+			while (null != (line = br.readLine()))tmp.add(line);
+			return tmp.toArray(new String[tmp.size()]);
+		} catch (IOException e) {
+			return new String[]{};
+		}
 	}
 	public static boolean writeToFile(File f,String content){
 		FileWriter fw=null;
