@@ -5,12 +5,12 @@ public class Main
 {
 	public static void main(String[] args)
 	{
-		File replaceFilesDir=new File("/sdcard/AppProjects/rakeem/src/PEPacketAnalyze/protocol/encapsulated");
+		File replaceFilesDir=new File("/storage/emulated/0/PocketMine/plugins/LemiHell/src/nao20010128nao/entities");
 		for(String s:ls(replaceFilesDir)){
 			System.out.println(s);
 			File single=new File(replaceFilesDir,s);
 			String cont=readWholeFile(single);
-			cont=cont.replace("PocketEdision","PocketEdition");
+			cont=cont.replace("namespace pocketmine\\entity;","namespace nao20010128nao\\entities;");
 			System.out.println(cont);
 			writeToFile(single,cont);
 		}
